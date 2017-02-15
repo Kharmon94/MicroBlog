@@ -6,3 +6,6 @@ require "./models"
 
 set :database, "sqlite3:practice.db"
 
+get '/' do
+  erb :index
+end

@@ -1,2 +1,14 @@
-<h1>Log In Here</h1>
-<%= erb :login %>
+<% if @current_user %>
+  <h2>Welcome <%= @current_user.fname %>!!</h2>
+  <a href="/logout">Log Out </a>
+  <!-- post stuff here -->
+  <form method="POST" action="/posts/new">
+    <label for="title">Post Title</label>
+    <input type="text" name="[post]title">
+     <label for="text">Post Text</label>
+     <textarea name="[post]text"></textarea>
+     <br>
+     <input type="submit">
+   </form>
+<% end %>
+  <%= erb :login unless @current_user%>

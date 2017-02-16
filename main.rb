@@ -1,6 +1,7 @@
 require "sinatra"
 require "active_record"
 require "sinatra/activerecord"
+
 require "sqlite3"
 require "./models"
 
@@ -19,6 +20,26 @@ get '/' do
   erb :index
 end
 
+get '/logout' do
+  session.destroy
+  redirect '/'
+end
+
+post '/posts/new' do
+  @post = Post.create(params[:post])
+  redirect '/posts'
+end
+
+get '/posts' do
+  @posts = Post.all
+  erb :posts
+end
+
+get '/post/:id' do
+  @post = Post.find(params[:id])
+  erb :post
+end
+
 # post login will go here here is where we need to check username and password to make it correct
 # if else statement will send user to a logged in session
 
@@ -27,7 +48,7 @@ post '/login' do
   if @user && @user.password == params[:password]
     # redirect '/'
     session[:user_id] = @user.id
-    flash[:notice] = "Successfully logged in..."
+    redirect '/'
     puts params.inspect
     params.inspect
   else

@@ -66,3 +66,40 @@ def current_user
     @current_user = User.find(session[:user_id])
   end
 end
+
+
+
+
+
+
+get "/settings" do
+  if session[:user_id]
+    erb :settings
+  else
+    redirect "/"
+  end
+end
+
+
+
+post "/settings" do
+  current_user.update(
+  fname: params[:fname],
+  lname: params[:lname],
+  username: params[:username],
+  )
+  # Update password if current password is correct
+  if(current_user.password == params[:password] && params[:new_password].length > 0)
+    current_user.update(
+    password: params[:new_password]
+    )
+  end
+
+  redirect back
+end
+
+post "/delete-account" do
+  current_user.destroy
+  session[:user_id] = nil
+  redirect "/"
+end

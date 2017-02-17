@@ -1,0 +1,24 @@
+<div id="wrapper">
+	<section id="container">
+	  <!-- Settings -->
+	  <form class="form settings" method="post" action="/settings">
+      <div class="title settings">
+        <h2>SETTINGS</h2>
+      </div>
+			<input class="input settings" type="text" name="fname" value="<%= current_user.fname %>" placeholder="firstname" required />
+			
+			<input class="input settings" type="text" name="lname" value="<%= current_user.lname %>"  placeholder="lastname" required />
+			
+			<input class="input settings" type="text" name="username" value="<%= current_user.username %>"  placeholder="username" required />
+
+			<input class="input settings" type="password" name="password" placeholder="current password" />
+			
+			<input class="input settings" type="password" name="new_password" placeholder="new password" />
+			
+			<input class="button settings" type="submit" value="UPDATE USER" />
+			<!-- Delete account button  -->
+			
+			<input class="button delete_user" formaction="/delete-account" type="submit" value="DELETE USER"/>
+	  </form>
+	</section>
+</div>

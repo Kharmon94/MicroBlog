@@ -34,8 +34,14 @@ post '/sign-up' do
   lname: params[:last_name],
   username: params[:username],
   password: params[:password]
-  )
+  ) 
+  p @user
+  unless @user && @user.id
+    flash[:notice] "sorry name taken"
+    redirect '/'
+  else
   session[:user_id] = @user.id
+end
   redirect '/posts'
 end
 

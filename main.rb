@@ -1,8 +1,8 @@
 require "sinatra"
 require "active_record"
 require "sinatra/activerecord"
-
 require "sqlite3"
+require "sinatra/flash"
 require "./models"
 
 set :database, "sqlite3:practice.db"
@@ -72,12 +72,13 @@ post '/login' do
   if @user && @user.password == params[:password]
     # redirect '/'
     session[:user_id] = @user.id
-    redirect '/'
+    flash[:notice] = "Successfully logged in..."
     puts params.inspect
     params.inspect
   else
-    redirect '/login-failed'
+    flash[:notice] = "Login Failed."
   end
+  redirect '/'
 end
 
 

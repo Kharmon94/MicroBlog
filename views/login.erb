@@ -1,3 +1,8 @@
+<% if flash[:notice] %>
+  <div id="notice">
+    <%= flash[:notice]%>
+  </div>
+<%end%>
 <form class="" action="/login" method="post">
   <fieldset>
     <legend>Login</legend>

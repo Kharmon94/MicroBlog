@@ -11,8 +11,12 @@ enable :sessions
 before do
   current_user
 end
-
-# DO that before do to check for user is logged in
+# have get '/sign-up' do
+# have then enter in 4 things f,lname and user, password.
+# it will use user.create and then read the values from the form just like how a post is created.
+# post /sign-up
+# verify username is unique. once unique can store their data with password provided. validates_uniqueness_of :username
+# get'/dashboard' to show them
 
 get '/' do
   @user = User.all
@@ -20,9 +24,29 @@ get '/' do
   erb :index
 end
 
+get '/signup' do
+  erb :signup
+end
+
+post '/sign-up' do
+  @user = User.create(
+  fname: params[:first_name],
+  lname: params[:last_name],
+  username: params[:username],
+  password: params[:password]
+  )
+  session[:user_id] = @user.id
+  redirect '/posts'
+end
+
+
 get '/logout' do
   session.destroy
   redirect '/'
+end
+
+get '/login-failed' do
+  erb :fail
 end
 
 post '/posts/new' do
@@ -54,10 +78,6 @@ post '/login' do
   else
     redirect '/login-failed'
   end
-end
-
-get '/login-failed' do
-  erb :fail
 end
 
 

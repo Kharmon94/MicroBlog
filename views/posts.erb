@@ -1,3 +1,5 @@
 <% @posts.each do |post| %>
   <a href="/post/<%= post.id %>"><%= post.title %></a>
+  <%= post.text %>
+  <br>
 <% end %>

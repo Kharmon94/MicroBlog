@@ -1,5 +1,10 @@
 <% @posts.each do |post| %>
+<div id="feedposts" class="container">
+	TOPIC:
   <a href="/post/<%= post.id %>"><%= post.title %></a>
-  <%= post.text %>
   <br>
+  <br>
+  <%= post.text %>
+</div> 
+ <br>
 <% end %>

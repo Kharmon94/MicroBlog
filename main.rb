@@ -5,6 +5,8 @@ require "sqlite3"
 require "sinatra/flash"
 require "./models"
 
+set :nav_buttons, [ {title: "Home", route: '/'}, {title: "Feed", route: '/posts'}, {title: "logout", route: '/logout'}, {title: "Settings", route: '/settings'}]
+
 set :database, "sqlite3:practice.db"
 enable :sessions
 
@@ -20,7 +22,7 @@ end
 
 get '/' do
   @user = User.all
-  p @current_user
+  p @current_user 
   erb :index
 end
 
@@ -61,7 +63,7 @@ post '/posts/new' do
 end
 
 get '/posts' do
-  @posts = Post.all
+  @posts = Post.all.order("id DESC")
   erb :posts
 end
 

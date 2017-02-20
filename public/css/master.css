@@ -1,0 +1,36 @@
+/*************************************************************************/
+/************************INDEX ERB ***************************************/
+/*************************************************************************/
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
+@font-face {
+    font-family: 'typer'; /*a name to be used later*/
+    src: url('../fonts/Old Typewriter2.0.ttf'); /*URL to font*/
+}
+
+.row{
+  margin: auto 0px;
+  /*background-color: black;*/
+  /*border: 1px solid red;*/
+}
+
+#headingText{
+  height: 100px;
+}
+
+#typedtext{
+  /*color: white;*/
+  /*font-family: typer;*/
+  font-size: 20px;
+  text-align: center;
+  vertical-align: middle;
+
+}
+#postForm{
+  height: 300px;
+  display: block;
+  text-align: center;
+}

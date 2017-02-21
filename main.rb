@@ -16,7 +16,7 @@ end
 
 get '/' do
   @user = User.all
-  p @current_user 
+  p @current_user
   erb :index
 end
 get '/signup' do
@@ -31,7 +31,6 @@ post '/sign-up' do
   )
   p @user
     unless @user && @user.id
-<<<<<<< HEAD
       flash[:notice] = "Sorry not Sorry"
       redirect '/'
     else
@@ -76,7 +75,7 @@ end
 # post login will go here here is where we need to check username and password to make it correct
 # if else statement will send user to a logged in session
 
->>>>>>> 1b37698ef8f1c04ba72aa3b6daee1ce8cfd8b0c7
+
 post '/login' do
   @user = User.where(username: params[:user]).first
   if @user && @user.password == params[:password]

@@ -67,7 +67,9 @@ body{
     font-family: 'typer'; /*a name to be used later*/
     src: url('../fonts/Old Typewriter2.0.ttf'); /*URL to font*/
 }
-
+#titleBox{
+	margin: 10px;
+}
 .row{
   margin: auto 0px;
   /*background-color: black;*/
@@ -91,7 +93,6 @@ body{
   display: block;
   text-align: center;
 }
-=======
 #feedposts{
 	margin: 15px;
 	border: outset;

@@ -29,23 +29,14 @@ post '/sign-up' do
   username: params[:username],
   password: params[:password]
   )
-  p @user
     unless @user && @user.id
-      flash[:notice] = "Sorry not Sorry"
+      flash[:notice] = "Sorry name taken"
       redirect '/'
     else
-    session[:user_id] = @user.id
-  end
-  redirect '/'
-end
-=======
-      flash[:notice] = "sorry name taken"
-      redirect '/'
-    else
-    session[:user_id] = @user.id
+      session[:user_id] = @user.id
     end
-  redirect '/posts'
-end
+      redirect '/'
+    end
 
 
 get '/logout' do

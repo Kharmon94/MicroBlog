@@ -31,7 +31,10 @@
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                         <% settings.nav_buttons.each do |buttons|%>
+                         <% settings.nav_buttons.each do |buttons|
+                            p @current_user, buttons[:title]
+                            next if buttons[:title] == "logout" && !@current_user
+                          %>
                         <li
                          <%= " class= 'active'" if @title == buttons[:title] %>><a href="<%= buttons[:route] %>"><%= buttons[:title]%> <span class="sr-only">(current)</span></a>
                         </li>

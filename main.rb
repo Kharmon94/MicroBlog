@@ -5,7 +5,7 @@ require "sqlite3"
 require "sinatra/flash"
 require "./models"
 
-set :nav_buttons, [ {title: "Home", route: '/'}, {title: "Feed", route: '/posts'}, {title: "logout", route: '/logout'}, {title: "Settings", route: '/settings'}]
+set :nav_buttons, [ {title: "Home", route: '/'}, {title: "Profile", route: '/profile'},  {title: "Feed", route: '/posts'}, {title: "logout", route: '/logout'}, {title: "Settings", route: '/settings'}]
 
 set :database, "sqlite3:practice.db"
 enable :sessions
@@ -13,6 +13,10 @@ enable :sessions
 before do
   current_user
 end
+
+#################################################################
+#  User Information
+#################################################################
 
 get '/' do
   @user = User.all
@@ -37,36 +41,9 @@ post '/sign-up' do
     end
       redirect '/'
     end
-
-
-get '/logout' do
-  session.destroy
-  redirect '/'
+get '/profile' do
+    erb :profile
 end
-
-get '/login-failed' do
-  erb :fail
-end
-
-post '/posts/new' do
-  @post = Post.create(params[:post])
-  redirect '/posts'
-end
-
-get '/posts' do
-  @posts = Post.all.order("id DESC")
-  erb :posts
-end
-
-get '/post/:id' do
-  @post = Post.find(params[:id])
-  erb :post
-end
-
-# post login will go here here is where we need to check username and password to make it correct
-# if else statement will send user to a logged in session
-
-
 post '/login' do
   @user = User.where(username: params[:user]).first
   if @user && @user.password == params[:password]
@@ -84,21 +61,9 @@ get '/logout' do
   session.destroy
   redirect '/'
 end
-
-
-get '/post/:id' do
-  @post = Post.find(params[:id])
-  erb :post
+get '/login-failed' do
+  erb :fail
 end
-get '/posts' do
-  @posts = Post.all
-  erb :posts
-end
-post '/posts/new' do
-  @post = Post.create(params[:post])
-  redirect '/posts'
-end
-
 get "/settings" do
   if session[:user_id]
     erb :settings
@@ -119,7 +84,7 @@ post "/settings" do
     )
   end
 
-  redirect back
+  redirect '/profile'
 end
 post "/delete-account" do
   current_user.destroy
@@ -127,9 +92,54 @@ post "/delete-account" do
   redirect "/"
 end
 
+#################################################################
+#  Post Information
+#################################################################
+
+get '/posts' do
+  @posts = Post.all.order("id DESC")
+  erb :posts
+end
+get '/posts' do
+  @posts = Post.all
+  erb :posts
+end
+get '/post/:id' do
+  @post = Post.find(params[:id])
+  erb :post
+end
+
+post '/posts/new' do
+  @post = Post.create(params[:post])
+  redirect '/posts'
+end
+
+get '/edit/:id' do
+  @post = Post.find(params[:id])
+  if session[:user_id]
+    erb :edit
+  else
+    redirect'/'
+  end
+end
+
+post '/edit/:id' do
+  @post = Post.find(params[:id])
+  @post.update(
+  title: params[:post][:title],
+  text: params[:post][:text]
+  )
+  redirect '/posts'
+end
+
+get '/delete/:id' do
+  @post = Post.delete(params[:id])
+  redirect to("/posts")
+end
+
+
 def current_user
   if session[:user_id]
     @current_user = User.find(session[:user_id])
   end
 end
-

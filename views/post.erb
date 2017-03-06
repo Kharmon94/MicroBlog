@@ -1,3 +1,9 @@
 <h1><%= @post.title %></h1>
 
 <%= @post.text %>
+
+<a href="/edit/<%=@post.id%>">Edit</a>
+|
+<a href='/delete/<%=@post.id%>'>Delete</a>
+|
+<a href="/posts">Back</a>
